@@ -1,26 +1,20 @@
-package com.solncev.model;
+package com.solncev.dto;
 
-import javax.persistence.*;
+import com.solncev.model.User;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class UserDto {
     private Integer id;
 
     private String name;
 
     private String email;
 
-    public User() {}
+    public Integer getId() {
+        return id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {
@@ -39,8 +33,13 @@ public class User {
         this.email = email;
     }
 
-    public User(String name, String email) {
+    public UserDto(Integer id, String name, String email) {
+        this.id = id;
         this.name = name;
         this.email = email;
+    }
+
+    public static UserDto fromModel(User user) {
+        return new UserDto(user.getId(), user.getName(), user.getEmail());
     }
 }

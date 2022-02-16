@@ -1,27 +1,14 @@
-package com.solncev.model;
+package com.solncev.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class CreateUserDto {
 
+    @NotBlank(message = "Name shouldn't be blank!")
     private String name;
 
+    @NotBlank(message = "Email shouldn't be blank!")
     private String email;
-
-    public User() {}
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -39,7 +26,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String name, String email) {
+    public CreateUserDto(String name, String email) {
         this.name = name;
         this.email = email;
     }

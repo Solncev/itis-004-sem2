@@ -11,7 +11,16 @@ public class User {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
+
+    @OneToOne
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
 
     public User() {}
 
@@ -37,6 +46,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     public User(String name, String email) {

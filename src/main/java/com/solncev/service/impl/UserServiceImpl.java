@@ -6,6 +6,7 @@ import com.solncev.model.User;
 import com.solncev.repository.UserRepository;
 import com.solncev.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +16,17 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     @Override
     public UserDto getByEmail(String email) {
-        return null;
+        return userRepository.getUserByEmail(email).stream().map(UserDto::fromModel).findFirst().orElse(null);
     }
 
     @Override
@@ -37,8 +40,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto save(CreateUserDto user) {
-        return UserDto.fromModel(userRepository.save(new User(user.getName(), user.getEmail())));
+    public UserDto save(CreateUserDto createUserDto) {
+        User user = new User(createUserDto.getName(), createUserDto.getEmail());
+        user.setPassword(encoder.encode(createUserDto.getPassword()));
+        return UserDto.fromModel(userRepository.save(user));
     }
 
     @Override

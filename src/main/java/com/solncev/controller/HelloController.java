@@ -1,12 +1,15 @@
 package com.solncev.controller;
 
 import com.solncev.dto.CreateUserDto;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -29,8 +32,21 @@ public class HelloController {
         return "sign_up";
     }
 
+//    @GetMapping("/home")
+//    public String getHome(Principal principal) {
+//        String currentPrincipalName = principal.getName();
+//        return "home";
+//    }
+
+//    @GetMapping("/home")
+//    public String getHome(Authentication authentication) {
+//        String currentPrincipalName = authentication.getName();
+//        return "home";
+//    }
+
     @GetMapping("/home")
-    public String getHome() {
+    public String getHome(HttpServletRequest httpServletRequest) {
+        String currentPrincipalName = httpServletRequest.getUserPrincipal().getName();
         return "home";
     }
 }

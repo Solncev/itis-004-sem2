@@ -13,9 +13,13 @@ public interface UserService {
 
     List<UserDto> getAll();
 
-    UserDto save(CreateUserDto createUserDto);
+    UserDto signUp(CreateUserDto createUserDto, String url);
 
     List<UserDto> getAllStepan();
 
     List<UserDto> getAllByName(String name);
+
+    boolean verify(String verificationCode);
+
+    void sendVerificationMail(String mail, String name, String code, String url);
 }

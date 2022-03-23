@@ -1,0 +1,105 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="maratsolncev (generated)" id="1648019824122-1">
+        <createTable tableName="course">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="course_pkey"/>
+            </column>
+            <column name="hours" type="INTEGER"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-2">
+        <createTable tableName="groups">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="groups_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-3">
+        <createTable tableName="passport">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="passport_pkey"/>
+            </column>
+            <column name="number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="series" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-4">
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-5">
+        <createTable tableName="users">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="verification_code" type="VARCHAR(64)"/>
+            <column name="group_id" type="INTEGER"/>
+            <column name="passport_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-6">
+        <addUniqueConstraint columnNames="email" constraintName="uk_6dotkott2kjsp8vw4d0m25fb7" tableName="users"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-7">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="hibernate_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-8">
+        <createTable tableName="group_course">
+            <column name="group_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-9">
+        <createTable tableName="user_role">
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+            <column name="role_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-10">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="group_course" constraintName="fk9hpn7jbmmr8ot326ucbemchk7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="course" validate="true"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-11">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="users" constraintName="fkemfuglprp85bh5xwhfm898ysc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="groups" validate="true"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-12">
+        <addForeignKeyConstraint baseColumnNames="passport_id" baseTableName="users" constraintName="fkihi622qbxfdemg98ia2cig3vw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="passport" validate="true"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-13">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="fkj345gk1bovqvfame88rcx7yyx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-14">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="group_course" constraintName="fkpfy7tx4y3k50r5o1gpu6w6imo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="groups" validate="true"/>
+    </changeSet>
+    <changeSet author="maratsolncev (generated)" id="1648019824122-15">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="fkt7e7djp752sqn6w22i6ocqy6q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

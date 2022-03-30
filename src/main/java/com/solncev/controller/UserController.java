@@ -6,6 +6,7 @@ import com.solncev.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,12 @@ public class UserController {
     @ResponseBody
     public Iterable<UserDto> getAllStepan() {
         return userService.getAllStepan();
+    }
+
+    @GetMapping("/sign_up")
+    public String getSignUp(Model model) {
+        model.addAttribute("user", new CreateUserDto());
+        return "sign_up";
     }
 
     @PostMapping("/sign_up")

@@ -51,4 +51,12 @@ public class UserControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].name").value("Ivan"));
     }
+
+    @Test
+    public void testSignUp() throws Exception {
+        mockMvc.perform(get("/sign_up"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("sign_up"));
+    }
 }

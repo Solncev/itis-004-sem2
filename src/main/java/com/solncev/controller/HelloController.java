@@ -26,12 +26,6 @@ public class HelloController {
         return "index";
     }
 
-    @GetMapping("/sign_up")
-    public String getSignUp(Model model) {
-        model.addAttribute("user", new CreateUserDto());
-        return "sign_up";
-    }
-
 //    @GetMapping("/home")
 //    public String getHome(Principal principal) {
 //        String currentPrincipalName = principal.getName();

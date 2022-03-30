@@ -59,4 +59,15 @@ test {
 
 jacocoTestReport {
     dependsOn test
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/solncev/config',
+                    'com/solncev/dto',
+                    'com/solncev/model',
+                    'com/solncev/security',
+                    'com/solncev/advice',
+            ])
+        }))
+    }
 }

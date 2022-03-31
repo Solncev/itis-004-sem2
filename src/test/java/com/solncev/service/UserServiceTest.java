@@ -46,4 +46,19 @@ public class UserServiceTest {
     public void testGetAll() {
         Assert.assertTrue(userService.getAll().isEmpty());
     }
+
+    @Test
+    public void testGetById() {
+        Assert.assertNull(userService.getById(1));
+    }
+
+    @Test
+    public void testGetByEmail() {
+        Assert.assertNull(userService.getByEmail(""));
+    }
+
+    @Test
+    public void testGetAllStepan() {
+        Assert.assertTrue(userService.getAllStepan().isEmpty());
+    }
 }

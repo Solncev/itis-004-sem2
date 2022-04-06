@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getByEmail(String email) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-        }
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//            String currentUserName = authentication.getName();
+//        }
         return userRepository.getUserByEmail(email).stream().map(UserDto::fromModel).findFirst().orElse(null);
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         String code = RandomString.make(64);
         String encodedPassword = encoder.encode(createUserDto.getPassword());
         User user = new User(createUserDto.getName(), createUserDto.getEmail(), code, encodedPassword);
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
         sendVerificationMail(createUserDto.getEmail(), createUserDto.getName(), code, url);
         return UserDto.fromModel(user);
     }

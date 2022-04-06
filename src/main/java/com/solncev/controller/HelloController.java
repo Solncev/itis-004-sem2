@@ -1,5 +1,6 @@
 package com.solncev.controller;
 
+import com.solncev.aspect.Loggable;
 import com.solncev.dto.CreateUserDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class HelloController {
     }
 
     @GetMapping("")
+    @Loggable
     public String getIndexPage() {
         return "index";
     }
@@ -39,6 +41,7 @@ public class HelloController {
 //    }
 
     @GetMapping("/home")
+    @Loggable
     public String getHome(HttpServletRequest httpServletRequest) {
         String currentPrincipalName = httpServletRequest.getUserPrincipal().getName();
         return "home";

@@ -1,10 +1,8 @@
 package com.solncev.controller;
 
 import com.solncev.aspect.Loggable;
-import com.solncev.dto.CreateUserDto;
-import org.springframework.security.core.Authentication;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,12 +14,14 @@ import java.util.Optional;
 @Controller
 public class HelloController {
 
+    @ApiOperation(value = "Returns hello message", produces = "application/json")
     @GetMapping("/hello")
     @ResponseBody
     public String hello(@RequestParam Optional<String> name) {
         return String.format("Hello, %s!", name.orElse("name"));
     }
 
+    @ApiOperation(value = "Returns index page", produces = "text/html")
     @GetMapping("")
     @Loggable
     public String getIndexPage() {
@@ -40,6 +40,7 @@ public class HelloController {
 //        return "home";
 //    }
 
+    @ApiOperation(value = "Returns home page", produces = "text/html")
     @GetMapping("/home")
     @Loggable
     public String getHome(HttpServletRequest httpServletRequest) {
